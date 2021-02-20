@@ -1,0 +1,39 @@
+node COUNTER(init, incr : int; X, reset:bool) returns (C:int);
+var PC : int;
+let
+	PC = init -> pre C;
+	C = if reset then init
+	else if X then (PC + incr)
+	else PC;
+tel
+
+
+(*odds = COUNTER(1,2,true, true->false);
+
+reset = true -> pre mod10= 9;
+mode10 = COUNTER(0,1,true,reset);*)
+
+(*interator*)
+(*F is the function of time*)
+node integrator(F,STEP,init: real) returns (Y: real);
+let
+	Y = init->pre(Y) + ((F + pre(F)) * STEP)/2.0;
+tel
+
+(*sinus/cosinus*)
+
+(*loop two sunch integrators to compute the functions sin and cos in a simpleminded way*)
+
+node sincos(omega:real)  returns (sin, cos:real);
+let
+	sin = omega * integrator(cos,0.1,0.0);
+	cos = 1 - omega * integrator(sin,0.1,0.0);
+tel
+
+(*NOTE: there is a deadlock above*)
+
+node SINCOS(omega:real) returns (sin,cos:real);
+let
+	sin = omega * integrator(cos,0.1,0.0);
+	cos = 1 - omega * integrator(0.0->pre(sin), 0.1, 0.0);
+tel

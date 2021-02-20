@@ -52,31 +52,21 @@ void EDGE_step(EDGE_ctx* ctx){
       ctx->_V2 = _false;
       EDGE_O_Y(ctx->client_data, ctx->_V2);
       if(ctx->_V1){
-         ctx->current_state = 1; break;
+         ctx->current_state = 0; break;
       } else {
-         ctx->current_state = 2; break;
+         ctx->current_state = 1; break;
       }
    break;
    
    case 1:
-      ctx->_V2 = _false;
-      EDGE_O_Y(ctx->client_data, ctx->_V2);
-      if(ctx->_V1){
-         ctx->current_state = 1; break;
-      } else {
-         ctx->current_state = 2; break;
-      }
-   break;
-   
-   case 2:
       if(ctx->_V1){
          ctx->_V2 = _true;
          EDGE_O_Y(ctx->client_data, ctx->_V2);
-         ctx->current_state = 1; break;
+         ctx->current_state = 0; break;
       } else {
          ctx->_V2 = _false;
          EDGE_O_Y(ctx->client_data, ctx->_V2);
-         ctx->current_state = 2; break;
+         ctx->current_state = 1; break;
       }
    break;
    } /* END SWITCH */

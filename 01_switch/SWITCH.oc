@@ -1,0 +1,38 @@
+oc5:
+module: SWITCH
+
+signals: 3
+   0: input:set - single:1 bool:0
+   1: input:initial - single:2 bool:0
+   2: output:level - single:3
+end: 
+
+variables: 4
+   0: $0
+   1: $0
+   2: $0
+   3: $0
+end: 
+
+actions: 7
+   0: present: 0
+   1: present: 1
+   2: output: 2
+   3: if: 2
+   4: call:$0 (3) (@$1)
+   5: call:$0 (3) (@$0)
+   6: if: 1
+end:
+
+states: 3
+startpoint: 0
+calls: 21
+0:  3 ( 4 2 <1> )( 5 2 <2> )
+
+1:  6 ( 5 2 <2> )( 4 2 <1> )
+
+2:  6 ( 4 2 <1> )( 5 2 <2> )
+
+end:
+
+endmodule:

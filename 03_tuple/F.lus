@@ -1,0 +1,23 @@
+node integrator(F,STEP,init: real) returns (Y: real);
+let
+	Y = init->pre(Y) + ((F + pre(F)) * STEP)/2.0;
+tel
+
+node sincos(omega:real) returns (sin,cos:real);
+let
+	sin = omega * integrator(cos,0.1,0.0);
+	cos = 1.0 - omega * integrator(0.0->pre(sin), 0.1, 0.0);
+tel
+
+
+node pythagore(omega:real) returns (one:real);
+var s,c : real;
+let
+	(s,c) = sincos(omega);
+	one = s*s + c*c;
+tel
+
+node minmax(x,y:int) returns (min,max:int);
+let
+	(min,max) = if(x<y) then (x,y) else (y,x);
+tel

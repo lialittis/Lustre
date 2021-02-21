@@ -34,7 +34,7 @@ tel
 node sincos(omega:real)  returns (sin, cos:real);
 let
 	sin = omega * integrator(cos,0.1,0.0);
-	cos = 1 - omega * integrator(sin,0.1,0.0);
+	cos = 1.0 - omega * integrator(sin,0.1,0.0);
 tel
 
 (*NOTE: there is a deadlock above*)
@@ -43,7 +43,7 @@ tel
 node SINCOS(omega:real) returns (sin,cos:real);
 let
 	sin = omega * integrator(cos,0.1,0.0);
-	cos = 1 - omega * integrator(0.0->pre(sin), 0.1, 0.0);
+	cos = 1.0 - omega * integrator(0.0->pre(sin), 0.1, 0.0);
 tel
 
-(*However it doesn't work!*)
+(*Notice that, if you use 1.0 in the cos function, it will not work because of the type issue*)

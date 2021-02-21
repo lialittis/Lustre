@@ -1,4 +1,10 @@
-node COUNTER(init, incr : int; X, reset:bool) returns (C:int);
+
+(*1.Counter node*)
+	
+(*an integer init which is the initial value of the counter*)
+(*an integer incr to add to counter each time X is true*)
+(*a boolean reset which sets the counter to the value of init, whatever is the value of X*)
+node COUNTER(init,incr:int; X, reset:bool) returns (C:int);
 var PC : int;
 let
 	PC = init -> pre C;
@@ -11,16 +17,17 @@ tel
 (*odds = COUNTER(1,2,true, true->false);
 
 reset = true -> pre mod10= 9;
-mode10 = COUNTER(0,1,true,reset);*)
+mode10 = COUNTER(0,1,true,reset);
+*)
 
-(*interator*)
+(*2.Interator node*)
 (*F is the function of time*)
 node integrator(F,STEP,init: real) returns (Y: real);
 let
 	Y = init->pre(Y) + ((F + pre(F)) * STEP)/2.0;
 tel
 
-(*sinus/cosinus*)
+(*3.Sinus/cosinus node*)
 
 (*loop two sunch integrators to compute the functions sin and cos in a simpleminded way*)
 
@@ -31,9 +38,12 @@ let
 tel
 
 (*NOTE: there is a deadlock above*)
+(*Because the variables sin and cos instantaneously depend on each other, so we need to cut the dependence loop, introducing a "pre" operator*)
 
 node SINCOS(omega:real) returns (sin,cos:real);
 let
 	sin = omega * integrator(cos,0.1,0.0);
 	cos = 1 - omega * integrator(0.0->pre(sin), 0.1, 0.0);
 tel
+
+(*However it doesn't work!*)

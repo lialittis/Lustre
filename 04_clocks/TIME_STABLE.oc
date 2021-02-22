@@ -1,0 +1,52 @@
+oc5:
+module: TIME_STABLE
+
+signals: 4
+   0: input:set - single:1 bool:0
+   1: input:second - single:2 bool:0
+   2: input:delay - single:3 bool:0
+   3: output:level - single:6
+end: 
+
+variables: 7
+   0: $0
+   1: $0
+   2: $0
+   3: $1
+   4: $0
+   5: $1
+   6: $0
+end: 
+
+actions: 15
+   0: present: 0
+   1: present: 1
+   2: present: 2
+   3: output: 3
+   4: if: 1
+   5: call:$0 (4) ($11(3,#0))
+   6: call:$1 (5) (3)
+   7: call:$0 (4) (@$0)
+   8: call:$1 (5) (#0)
+   9: if: 4
+   10: call:$0 (6) (@$1)
+   11: call:$0 (6) (@$0)
+   12: if: 2
+   13: call:$0 (4) ($11($14(5,#1),#0))
+   14: call:$1 (5) ($14(5,#1))
+end:
+
+states: 3
+startpoint: 0
+calls: 58
+0:  4 ( 5 6)( 7 8) 9 ( 10 3 <1> )( 11 3 <2> )
+
+1:  4 ( 5 6 9 ( 10 3 <1> )( 11 3 <2> ))( 12 ( 13 14 9 ( 10 3 <1> )( 11 3 <2> )
+)( 10 3 <1> ))
+
+2:  4 ( 5 6 9 ( 10 3 <1> )( 11 3 <2> ))( 12 ( 7 8 9 ( 10 3 <1> )( 11 3 <2> ))( 
+11 3 <2> ))
+
+end:
+
+endmodule:

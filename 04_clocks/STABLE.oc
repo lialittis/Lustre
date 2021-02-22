@@ -1,0 +1,41 @@
+oc5:
+module: STABLE
+
+signals: 3
+   0: input:set - single:1 bool:0
+   1: input:delay - single:2 bool:0
+   2: output:level - single:3
+end: 
+
+variables: 5
+   0: $0
+   1: $0
+   2: $1
+   3: $0
+   4: $1
+end: 
+
+actions: 9
+   0: present: 0
+   1: present: 1
+   2: output: 2
+   3: if: 1
+   4: call:$1 (4) (2)
+   5: call:$1 (4) (#0)
+   6: call:$0 (3) ($11(4,#0))
+   7: if: 3
+   8: call:$1 (4) ($14(4,#1))
+end:
+
+states: 3
+startpoint: 0
+calls: 24
+0:  3 ( 4)( 5) 6 2 7 ( <1> )( <2> )
+
+1:  3 ( 4)( 8) 6 2 7 ( <1> )( <2> )
+
+2:  3 ( 4)( 5) 6 2 7 ( <1> )( <2> )
+
+end:
+
+endmodule:

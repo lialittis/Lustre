@@ -1,0 +1,73 @@
+oc5:
+module: MAIN
+
+signals: 12
+   0: input:A_0 - single:1 bool:0
+   1: input:A_1 - single:2 bool:0
+   2: input:A_2 - single:3 bool:0
+   3: input:A_3 - single:4 bool:0
+   4: input:A_4 - single:5 bool:0
+   5: input:A_5 - single:6 bool:0
+   6: input:A_6 - single:7 bool:0
+   7: input:A_7 - single:8 bool:0
+   8: input:A_8 - single:9 bool:0
+   9: input:A_9 - single:10 bool:0
+   10: output:LIN_OR - single:11
+   11: output:TREE_OR - single:12
+end: 
+
+variables: 13
+   0: $0
+   1: $0
+   2: $0
+   3: $0
+   4: $0
+   5: $0
+   6: $0
+   7: $0
+   8: $0
+   9: $0
+   10: $0
+   11: $0
+   12: $0
+end: 
+
+actions: 26
+   0: present: 0
+   1: present: 1
+   2: present: 2
+   3: present: 3
+   4: present: 4
+   5: present: 5
+   6: present: 6
+   7: present: 7
+   8: present: 8
+   9: present: 9
+   10: output: 10
+   11: output: 11
+   12: if: 1
+   13: call:$0 (11) (@$1)
+   14: call:$0 (12) (@$1)
+   15: if: 2
+   16: if: 3
+   17: if: 4
+   18: if: 5
+   19: if: 6
+   20: if: 7
+   21: if: 8
+   22: if: 9
+   23: if: 10
+   24: call:$0 (11) (@$0)
+   25: call:$0 (12) (@$0)
+end:
+
+states: 1
+startpoint: 0
+calls: 55
+0:  12 ( 13 10 14 11)( 15 ( 13 10 14 11)( 16 ( 13 10 14 11)( 17 ( 13 10 14 11)(
+ 18 ( 13 10 14 11)( 19 ( 13 10 14 11)( 20 ( 13 10 14 11)( 21 ( 13 10 14 11)( 22
+ ( 13 10 14 11)( 23 ( 13 10 14 11)( 24 10 25 11)))))))))) <0> 
+
+end:
+
+endmodule:

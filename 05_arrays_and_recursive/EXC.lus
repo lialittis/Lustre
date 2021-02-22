@@ -1,0 +1,14 @@
+(*using concatenation and constructor*)
+node exclusive(const n:int;X:bool^n) returns(exclusive:bool);
+var EX,OR:bool^n;
+let
+	exclusive = EX[n-1];
+	EX = [true] | (EX[0..n-2] and not (OR[0..n-2] and X[1..n-1]));
+	OR = [X[0]] | (OR[0..n-2] or X[1..n-1]);
+tel
+
+const size = 10;
+node MAIN_EXC(X:bool^size) returns(exclusive:bool);
+let
+	exclusive = exclusive(size,X);
+tel

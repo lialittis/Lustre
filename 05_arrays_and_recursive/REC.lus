@@ -1,0 +1,23 @@
+(*disjunction of all the elements of a Boolean array*)
+
+node LIN_OR(const n:int;A:bool^n) returns (OR:bool);
+let
+	OR = with n = 1 then A[0]
+		 else A[0] or LIN_OR(n-1,A[1..n-1]);
+tel
+
+(*a tree structure*)
+
+node TREE_OR(const n:int; A:bool^n) returns(OR:bool);
+let
+	OR = with n=1 then A[0]
+		 else TREE_OR(n div 2, A[0..(n div 2 -1)]) or
+				TREE_OR((n+1)div 2, A[n div 2 .. n-1]);
+tel
+
+const size = 10;
+node MAIN(A:bool^size) returns(LIN_OR:bool;TREE_OR:bool);
+let
+	LIN_OR = LIN_OR(size,A);
+	TREE_OR = TREE_OR(size,A);
+tel

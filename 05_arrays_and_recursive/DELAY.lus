@@ -1,0 +1,49 @@
+node DELAY(const d: int; X:bool) returns (Y:bool);
+var A: bool^(d+1);
+let
+	A[0] = X;
+	A[1..d] = (false^(d)) -> pre(A[0..d-1]);
+	Y = A[d];
+tel
+
+node MAIN_DELAY(A:bool) returns (A_delayed:bool);
+let
+	A_delayed = DELAY(10,A);
+tel
+
+(*The delay node with recursion*)
+
+node REC_DELAY(const d:int;X:bool) returns(Y:bool)
+let
+	Y = with d = 0 then X
+		else false -> pre(REC_DELAY(d-1,X));
+tel
+
+node MAIN_DELAY1(A:bool) returns (A_delayed:bool);
+let
+	A_delayed = REC_DELAY(3,A);
+tel
+
+(*Q: for the recursion, there is an implementation of flase->pre(..),
+  why the re-definition of Y stream will not cover the previous definition
+  of Y stream?*)
+
+(*EXTENSION TEST*)
+
+node REC_DELAY_T(const d:int;X:bool) returns(Y:bool);
+let
+	Y = with d = 0 then X
+		else true -> pre(REC_DELAY_T(d-1,X));
+tel
+
+node MAIN_DELAY_T(A:bool) returns (A_delayed:bool);
+let
+	A_delayed = REC_DELAY_T(3,A);
+tel
+
+(*The answer should be -> can only influence the first several elements of a stream*)
+
+(*Two recursive networks*)
+
+
+
